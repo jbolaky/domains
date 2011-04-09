@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><project default="javadoc">
-    <target name="javadoc">
-        <javadoc access="public" classpath="." packagenames="com.java.oracle" sourcepath="src">
-            <doclet name="com.sun.tools.doclets.standard.Standard" path="/usr/java/jdk1.6.0_16/lib/tools.jar"/>
-        </javadoc>
-    </target>
-</project>

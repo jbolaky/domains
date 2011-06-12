@@ -1,38 +1,21 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+
 	<parent>
 		<groupId>com.javaid.bolaky.domain</groupId>
 		<artifactId>domain.parent</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
-	<groupId>com.javaid.bolaky.domain.user-registration</groupId>
-	<artifactId>domain.user-registration.parent</artifactId>
+
+	<groupId>com.javaid.bolaky.domain.commons</groupId>
+	<artifactId>domain.commons</artifactId>
+	<packaging>jar</packaging>
 	<version>1.0-SNAPSHOT</version>
-	<packaging>pom</packaging>
-	<name>domain.user-registration.parent</name>
+	<name>domain.commons</name>
 	<url>http://maven.apache.org</url>
 
-	<modules>
-		<module>user-registration.entity</module>
-		<module>user-registration.service</module>
-	</modules>
-
 	<dependencies>
-
-		<dependency>
-			<groupId>com.javaid.bolaky.domain.commons</groupId>
-			<artifactId>domain.commons</artifactId>
-			<version>${project.parent.version}</version>
-		</dependency>
-
-		<!-- InMemory DB -->
-		<dependency>
-			<groupId>hsqldb</groupId>
-			<artifactId>hsqldb</artifactId>
-		</dependency>
 
 		<!-- Commons-Collections -->
 		<dependency>
@@ -58,10 +41,15 @@
 			<artifactId>joda-time-hibernate</artifactId>
 		</dependency>
 
-		<!-- Hibernate -->
+		<!-- Hibernate and JPA -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
 		</dependency>
 
 		<!-- AspectJ Runtime -->
@@ -78,15 +66,13 @@
 			<artifactId>aspectjtools</artifactId>
 		</dependency>
 
-		<!-- Spring Dependency -->
-		<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-jpa</artifactId>
-		</dependency>	
-		
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<artifactId>spring-expression</artifactId>
+			<artifactId>spring-orm</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aspects</artifactId>
 		</dependency>
 
 		<dependency>
@@ -97,23 +83,6 @@
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-config</artifactId>
-		</dependency>
-
-		<!-- Spring JPA -->
-		<dependency>
-			<groupId>javax.persistence</groupId>
-			<artifactId>com.springsource.javax.persistence</artifactId>
-		</dependency>
-
-		<!-- Test dependency -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-test</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
 		</dependency>
 
 	</dependencies>

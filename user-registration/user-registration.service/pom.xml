@@ -9,13 +9,20 @@
 	</parent>
 
 	<groupId>com.javaid.bolaky.domain.user-registration</groupId>
-	<artifactId>domain.user-registration.entity</artifactId>
+	<artifactId>domain.user-registration.service</artifactId>
 	<packaging>jar</packaging>
 	<version>1.0-SNAPSHOT</version>
-	<name>domain.user-registration.entity</name>
+	<name>domain.user-registration.service</name>
 	<url>http://maven.apache.org</url>
 
 	<dependencies>
+
+		<dependency>
+			<groupId>com.javaid.bolaky.domain.user-registration</groupId>
+			<artifactId>domain.user-registration.entity</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+
 	</dependencies>
 
 </project>

@@ -47,7 +47,7 @@ public class UserRegistrationRepositotyIntegrationTest {
 
 		SecurityContextHolder.getContext().setAuthentication(null);
 		Person person = createPerson("javaid", "password", "javaid", "javaid",
-				2, AgeGroup.THIRTY_TO_THIRTYFIVE, true, true, true, true,
+				2, AgeGroup.THIRTY_ONE_TO_THIRTYFIVE, true, true, true, true,
 				Gender.MALE, true, "javaid.bolaky@tnt.com", "230-7768487");
 		person = userRegistrationRepository.save(person);
 	}
@@ -56,7 +56,7 @@ public class UserRegistrationRepositotyIntegrationTest {
 	public void testSave() {
 
 		Person person = createPerson("Javaid", "password", "javaid", "javaid",
-				2, AgeGroup.THIRTY_TO_THIRTYFIVE, true, false, true, false,
+				2, AgeGroup.THIRTY_ONE_TO_THIRTYFIVE, true, false, true, false,
 				Gender.MALE, true, "javaid.bolaky@tnt.com", "2307768487");
 
 		Address address = new Address("ADDRESS_LINE_1", "MRU", "23000", "PL",
@@ -73,7 +73,7 @@ public class UserRegistrationRepositotyIntegrationTest {
 		Person person2 = userRegistrationRepository.findOne(person
 				.getPersonId());
 		assertPerson(person2, "Javaid", "password", "javaid", "javaid", 2,
-				AgeGroup.THIRTY_TO_THIRTYFIVE, true, false, true, false,
+				AgeGroup.THIRTY_ONE_TO_THIRTYFIVE, true, false, true, false,
 				Gender.MALE, true, "javaid.bolaky@tnt.com", "2307768487");
 
 		Iterator<Address> iterator = person2.getContactDetails().getAddresses()

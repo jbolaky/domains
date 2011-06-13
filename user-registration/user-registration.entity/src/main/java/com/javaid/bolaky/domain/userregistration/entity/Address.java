@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -41,9 +42,11 @@ public class Address extends AbstractTimestampUsernameEntity {
 	@Column(name = "POST_CODE")
 	private String postCode;
 
+	@NotNull
 	@Column(name = "COUNTRY_CODE")
 	private String countryCode;
 
+	@NotNull
 	@Column(name = "TOWN_CODE")
 	private String townCode;
 

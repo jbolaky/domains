@@ -7,18 +7,27 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.apache.commons.collections15.set.ListOrderedSet;
+import org.hibernate.validator.constraints.Email;
 
 @Embeddable
 public class ContactDetails {
 
+	@NotNull
+	@Email
 	@Column(name = "EMAIL_ADDRESS")
 	private String emailAddress;
 
 	@Column(name = "PHONE_NUMBER")
 	private String phoneNumber;
 
+	@Valid
+	@NotNull
+	@Size(min=1)
 	@OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
 	private Set<Address> addresses = new ListOrderedSet<Address>();
 

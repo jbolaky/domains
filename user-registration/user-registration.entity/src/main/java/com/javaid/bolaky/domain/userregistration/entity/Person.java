@@ -1,5 +1,7 @@
 package com.javaid.bolaky.domain.userregistration.entity;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -7,7 +9,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
+import org.apache.commons.collections15.set.ListOrderedSet;
+import org.apache.commons.collections15.set.UnmodifiableSet;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -19,9 +29,13 @@ import org.hibernate.annotations.TypeDefs;
 import com.javaid.bolaky.domain.jpa.entity.AbstractTimestampUsernameEntity;
 import com.javaid.bolaky.domain.userregistration.entity.enumerated.AgeGroup;
 import com.javaid.bolaky.domain.userregistration.entity.enumerated.Gender;
+import com.javaid.bolaky.domain.userregistration.enumerated.PersonErrorCode;
+import com.javaid.bolaky.domain.userregistration.hibernate.constraint.AgeAndLicenseCheck;
+import com.javaid.bolaky.domain.userregistration.hibernate.group.MandatoryDataRules;
 
 @Entity
 @Table(name = "PERSON")
+@AgeAndLicenseCheck(groups = MandatoryDataRules.class)
 @TypeDefs({
 		@TypeDef(name = "hibernate_persistentDateTime", typeClass = org.joda.time.contrib.hibernate.PersistentDateTime.class),
 		@TypeDef(name = "gender_user_types", typeClass = com.javaid.bolaky.domain.hibernate.jpa.enumeration.GenericEnumUserType.class, parameters = @Parameter(name = "type", value = "com.javaid.bolaky.domain.userregistration.entity.enumerated.Gender")),
@@ -35,15 +49,20 @@ public class Person extends AbstractTimestampUsernameEntity {
 	@Column(name = "PERSON_ID", nullable = false)
 	private Long personId;
 
+	@Size(min = 8)
+	@NotNull
 	@Column(name = "USERNAME")
 	private String username;
 
+	@NotNull
 	@Column(name = "PASSWORD")
 	private String password;
 
+	@NotNull
 	@Column(name = "FIRSTNAME")
 	private String firstname;
 
+	@NotNull
 	@Column(name = "LASTNAME")
 	private String lastname;
 
@@ -54,14 +73,17 @@ public class Person extends AbstractTimestampUsernameEntity {
 	@Type(type = "age_user_types")
 	private AgeGroup ageGroup;
 
+	@NotNull
 	@Column(name = "GENDER")
 	@Type(type = "gender_user_types")
 	private Gender gender;
 
+	@NotNull
 	@Column(name = "VALID_LICENSE_IND")
 	@Type(type = "yes_no")
 	private Boolean validLicense;
 
+	@NotNull
 	@Column(name = "VEHICLE_OWNER")
 	@Type(type = "yes_no")
 	private Boolean vehicleOwner;
@@ -178,6 +200,23 @@ public class Person extends AbstractTimestampUsernameEntity {
 
 	public ContactDetails getContactDetails() {
 		return contactDetails;
+	}
+
+	public Set<PersonErrorCode> validate() {
+
+		Set<PersonErrorCode> personErrorCodes = new ListOrderedSet<PersonErrorCode>();
+		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+		Validator validator = factory.getValidator();
+		Set<ConstraintViolation<Person>> constraintViolations = validator
+				.validate(this, MandatoryDataRules.class);
+
+		for (ConstraintViolation<Person> constraintViolation : constraintViolations) {
+
+			personErrorCodes.add(PersonErrorCode
+					.convertFrom(constraintViolation.getMessage()));
+		}
+
+		return UnmodifiableSet.decorate(personErrorCodes);
 	}
 
 	@Override

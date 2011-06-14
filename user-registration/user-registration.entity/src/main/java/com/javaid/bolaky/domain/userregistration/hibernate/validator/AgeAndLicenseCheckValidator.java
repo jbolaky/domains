@@ -18,7 +18,8 @@ public class AgeAndLicenseCheckValidator implements
 
 		boolean isValid = false;
 
-		if (person != null && person.hasValidLicense()) {
+		if (person != null && person.hasValidLicense() != null
+				&& person.hasValidLicense()) {
 
 			if ((person.getAge() != null && person.getAge() >= 18)
 					|| (person.getAgeGroup() != null && (person.getAgeGroup()

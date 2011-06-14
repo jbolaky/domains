@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.ConstraintViolation;
+import javax.validation.Valid;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
@@ -31,11 +32,11 @@ import com.javaid.bolaky.domain.userregistration.entity.enumerated.AgeGroup;
 import com.javaid.bolaky.domain.userregistration.entity.enumerated.Gender;
 import com.javaid.bolaky.domain.userregistration.enumerated.PersonErrorCode;
 import com.javaid.bolaky.domain.userregistration.hibernate.constraint.AgeAndLicenseCheck;
-import com.javaid.bolaky.domain.userregistration.hibernate.group.MandatoryDataRules;
+import com.javaid.bolaky.domain.userregistration.hibernate.group.CarPoolDataRules;
 
 @Entity
 @Table(name = "PERSON")
-@AgeAndLicenseCheck(groups = MandatoryDataRules.class)
+@AgeAndLicenseCheck(groups = CarPoolDataRules.class)
 @TypeDefs({
 		@TypeDef(name = "hibernate_persistentDateTime", typeClass = org.joda.time.contrib.hibernate.PersistentDateTime.class),
 		@TypeDef(name = "gender_user_types", typeClass = com.javaid.bolaky.domain.hibernate.jpa.enumeration.GenericEnumUserType.class, parameters = @Parameter(name = "type", value = "com.javaid.bolaky.domain.userregistration.entity.enumerated.Gender")),
@@ -49,41 +50,42 @@ public class Person extends AbstractTimestampUsernameEntity {
 	@Column(name = "PERSON_ID", nullable = false)
 	private Long personId;
 
-	@Size(min = 8)
-	@NotNull
+	@Size(min = 8, groups = CarPoolDataRules.class, message = "P12")
+	@NotNull(groups = CarPoolDataRules.class, message = "P11")
 	@Column(name = "USERNAME")
 	private String username;
 
-	@NotNull
+	@Size(min = 8, groups = CarPoolDataRules.class, message = "P14")
+	@NotNull(groups = CarPoolDataRules.class, message = "P13")
 	@Column(name = "PASSWORD")
 	private String password;
 
-	@NotNull
+	@NotNull(groups = CarPoolDataRules.class, message = "P15")
 	@Column(name = "FIRSTNAME")
 	private String firstname;
 
-	@NotNull
+	@NotNull(groups = CarPoolDataRules.class, message = "P16")
 	@Column(name = "LASTNAME")
 	private String lastname;
 
 	@Column(name = "AGE")
 	private Integer age;
 
+	@NotNull(groups = CarPoolDataRules.class, message = "P17")
 	@Column(name = "AGE_GROUP")
 	@Type(type = "age_user_types")
 	private AgeGroup ageGroup;
 
-	@NotNull
+	@NotNull(groups = CarPoolDataRules.class, message = "P18")
 	@Column(name = "GENDER")
 	@Type(type = "gender_user_types")
 	private Gender gender;
 
-	@NotNull
+	@NotNull(groups = CarPoolDataRules.class, message = "P19")
 	@Column(name = "VALID_LICENSE_IND")
 	@Type(type = "yes_no")
 	private Boolean validLicense;
 
-	@NotNull
 	@Column(name = "VEHICLE_OWNER")
 	@Type(type = "yes_no")
 	private Boolean vehicleOwner;
@@ -99,6 +101,7 @@ public class Person extends AbstractTimestampUsernameEntity {
 	@Embedded
 	private UserPreferences userPreferences = new UserPreferences();
 
+	@Valid
 	@Embedded
 	private ContactDetails contactDetails = new ContactDetails(this);
 
@@ -202,13 +205,14 @@ public class Person extends AbstractTimestampUsernameEntity {
 		return contactDetails;
 	}
 
-	public Set<PersonErrorCode> validate() {
+	public Set<PersonErrorCode> validate(
+			@SuppressWarnings("rawtypes") Class... clazz) {
 
 		Set<PersonErrorCode> personErrorCodes = new ListOrderedSet<PersonErrorCode>();
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		Validator validator = factory.getValidator();
 		Set<ConstraintViolation<Person>> constraintViolations = validator
-				.validate(this, MandatoryDataRules.class);
+				.validate(this, clazz);
 
 		for (ConstraintViolation<Person> constraintViolation : constraintViolations) {
 

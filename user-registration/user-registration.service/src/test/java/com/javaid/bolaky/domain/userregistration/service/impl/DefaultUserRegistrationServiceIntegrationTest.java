@@ -46,7 +46,7 @@ public class DefaultUserRegistrationServiceIntegrationTest {
 	@Test
 	public void saveAndRetrievePerson() {
 		Person person = createPerson("Javaid", "password", "javaid", "javaid",
-				2, AgeGroup.THIRTY_TO_THIRTYFIVE, true, false, true, false,
+				2, AgeGroup.THIRTY_ONE_TO_THIRTYFIVE, true, false, true, false,
 				Gender.MALE, true, "javaid.bolaky@tnt.com", "2307768487");
 
 		Address address = new Address("ADDRESS_LINE_1", "MRU", "23000", "PL",
@@ -63,7 +63,7 @@ public class DefaultUserRegistrationServiceIntegrationTest {
 		Person person2 = userRegistrationService.retrievePerson(person
 				.getPersonId());
 		assertPerson(person2, "Javaid", "password", "javaid", "javaid", 2,
-				AgeGroup.THIRTY_TO_THIRTYFIVE, true, false, true, false,
+				AgeGroup.THIRTY_ONE_TO_THIRTYFIVE, true, false, true, false,
 				Gender.MALE, true, "javaid.bolaky@tnt.com", "2307768487");
 
 		Iterator<Address> iterator = person2.getContactDetails().getAddresses()

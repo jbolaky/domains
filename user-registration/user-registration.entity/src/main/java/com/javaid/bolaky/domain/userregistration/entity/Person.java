@@ -32,11 +32,11 @@ import com.javaid.bolaky.domain.userregistration.entity.enumerated.AgeGroup;
 import com.javaid.bolaky.domain.userregistration.entity.enumerated.Gender;
 import com.javaid.bolaky.domain.userregistration.enumerated.PersonErrorCode;
 import com.javaid.bolaky.domain.userregistration.hibernate.constraint.AgeAndLicenseCheck;
-import com.javaid.bolaky.domain.userregistration.hibernate.group.CarPoolDataRules;
+import com.javaid.bolaky.domain.userregistration.hibernate.group.MandatoryDataRules;
 
 @Entity
 @Table(name = "PERSON")
-@AgeAndLicenseCheck(groups = CarPoolDataRules.class)
+@AgeAndLicenseCheck(groups = MandatoryDataRules.class)
 @TypeDefs({
 		@TypeDef(name = "hibernate_persistentDateTime", typeClass = org.joda.time.contrib.hibernate.PersistentDateTime.class),
 		@TypeDef(name = "gender_user_types", typeClass = com.javaid.bolaky.domain.hibernate.jpa.enumeration.GenericEnumUserType.class, parameters = @Parameter(name = "type", value = "com.javaid.bolaky.domain.userregistration.entity.enumerated.Gender")),
@@ -50,38 +50,38 @@ public class Person extends AbstractTimestampUsernameEntity {
 	@Column(name = "PERSON_ID", nullable = false)
 	private Long personId;
 
-	@Size(min = 8, groups = CarPoolDataRules.class, message = "P12")
-	@NotNull(groups = CarPoolDataRules.class, message = "P11")
+	@Size(min = 8, groups = MandatoryDataRules.class, message = "P12")
+	@NotNull(groups = MandatoryDataRules.class, message = "P11")
 	@Column(name = "USERNAME")
 	private String username;
 
-	@Size(min = 8, groups = CarPoolDataRules.class, message = "P14")
-	@NotNull(groups = CarPoolDataRules.class, message = "P13")
+	@Size(min = 8, groups = MandatoryDataRules.class, message = "P14")
+	@NotNull(groups = MandatoryDataRules.class, message = "P13")
 	@Column(name = "PASSWORD")
 	private String password;
 
-	@NotNull(groups = CarPoolDataRules.class, message = "P15")
+	@NotNull(groups = MandatoryDataRules.class, message = "P15")
 	@Column(name = "FIRSTNAME")
 	private String firstname;
 
-	@NotNull(groups = CarPoolDataRules.class, message = "P16")
+	@NotNull(groups = MandatoryDataRules.class, message = "P16")
 	@Column(name = "LASTNAME")
 	private String lastname;
 
 	@Column(name = "AGE")
 	private Integer age;
 
-	@NotNull(groups = CarPoolDataRules.class, message = "P17")
+	@NotNull(groups = MandatoryDataRules.class, message = "P17")
 	@Column(name = "AGE_GROUP")
 	@Type(type = "age_user_types")
 	private AgeGroup ageGroup;
 
-	@NotNull(groups = CarPoolDataRules.class, message = "P18")
+	@NotNull(groups = MandatoryDataRules.class, message = "P18")
 	@Column(name = "GENDER")
 	@Type(type = "gender_user_types")
 	private Gender gender;
 
-	@NotNull(groups = CarPoolDataRules.class, message = "P19")
+	@NotNull(groups = MandatoryDataRules.class, message = "P19")
 	@Column(name = "VALID_LICENSE_IND")
 	@Type(type = "yes_no")
 	private Boolean validLicense;

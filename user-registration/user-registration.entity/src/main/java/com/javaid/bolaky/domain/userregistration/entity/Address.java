@@ -17,7 +17,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.hibernate.annotations.TypeDef;
 
 import com.javaid.bolaky.domain.jpa.entity.AbstractTimestampUsernameEntity;
-import com.javaid.bolaky.domain.userregistration.hibernate.group.CarPoolDataRules;
+import com.javaid.bolaky.domain.userregistration.hibernate.group.MandatoryDataRules;
 
 @Entity
 @Table(name = "ADDRESS")
@@ -43,11 +43,11 @@ public class Address extends AbstractTimestampUsernameEntity {
 	@Column(name = "POST_CODE")
 	private String postCode;
 
-	@NotNull(groups=CarPoolDataRules.class,message="P24")
+	@NotNull(groups=MandatoryDataRules.class,message="P24")
 	@Column(name = "COUNTRY_CODE")
 	private String countryCode;
 
-	@NotNull(groups=CarPoolDataRules.class,message="P25")
+	@NotNull(groups=MandatoryDataRules.class,message="P25")
 	@Column(name = "TOWN_CODE")
 	private String townCode;
 

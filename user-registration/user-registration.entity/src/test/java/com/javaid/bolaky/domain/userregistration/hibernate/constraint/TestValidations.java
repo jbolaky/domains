@@ -10,7 +10,7 @@ import org.junit.Test;
 import com.javaid.bolaky.domain.userregistration.entity.Address;
 import com.javaid.bolaky.domain.userregistration.entity.Person;
 import com.javaid.bolaky.domain.userregistration.enumerated.PersonErrorCode;
-import com.javaid.bolaky.domain.userregistration.hibernate.group.CarPoolDataRules;
+import com.javaid.bolaky.domain.userregistration.hibernate.group.MandatoryDataRules;
 
 public class TestValidations {
 
@@ -21,7 +21,7 @@ public class TestValidations {
 		person.setValidLicense(true);
 
 		Set<PersonErrorCode> personErrorCodes = person
-				.validate(CarPoolDataRules.class);
+				.validate(MandatoryDataRules.class);
 
 		boolean hasFound = false;
 		for (PersonErrorCode personErrorCode : personErrorCodes) {
@@ -40,7 +40,7 @@ public class TestValidations {
 		Person person = new Person();
 
 		Set<PersonErrorCode> personErrorCodes = person
-				.validate(CarPoolDataRules.class);
+				.validate(MandatoryDataRules.class);
 
 		assertThat(personErrorCodes.size(), is(10));
 	}
@@ -52,7 +52,7 @@ public class TestValidations {
 		person.getContactDetails().setEmailAddress("a");
 
 		Set<PersonErrorCode> personErrorCodes = person
-				.validate(CarPoolDataRules.class);
+				.validate(MandatoryDataRules.class);
 
 		boolean hasFound = false;
 		for (PersonErrorCode personErrorCode : personErrorCodes) {
@@ -72,7 +72,7 @@ public class TestValidations {
 		person.getContactDetails().setEmailAddress("javaid@gmail.com");
 
 		Set<PersonErrorCode> personErrorCodes = person
-				.validate(CarPoolDataRules.class);
+				.validate(MandatoryDataRules.class);
 
 		boolean hasFound = false;
 		for (PersonErrorCode personErrorCode : personErrorCodes) {
@@ -94,7 +94,7 @@ public class TestValidations {
 		person.getContactDetails().addAddress(address);
 
 		Set<PersonErrorCode> personErrorCodes = person
-				.validate(CarPoolDataRules.class);
+				.validate(MandatoryDataRules.class);
 
 		boolean hasFound = false;
 		for (PersonErrorCode personErrorCode : personErrorCodes) {
